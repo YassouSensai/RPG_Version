@@ -136,7 +136,7 @@ public class Quete {
      * @return boolean
      */
     public boolean estQueteFinale() {
-        return this.chNumero == 0;
+        return chNumero == 0;
     }
 
     /**
@@ -144,7 +144,16 @@ public class Quete {
      * @return boolean
      */
     public boolean possedePreconditions() {
-
+        boolean reponse = false;
+        for (int i=0; i < chPreconditions.length; i++) {
+            for (int j=0; j < chPreconditions[i].length; j++) {
+                if (chPreconditions[i][j] != 0){
+                    reponse = true;
+                    break;
+                }
+            }
+        }
+        return reponse;
     }
 
     /**
