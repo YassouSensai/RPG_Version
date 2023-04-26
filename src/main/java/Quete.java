@@ -57,12 +57,12 @@ public class Quete {
             Scanner secondPrecond = new Scanner(premierePrecondition).useDelimiter(",");
 
             for (int i = 0; i < chPreconditions[0].length; i++) {
-                if (firstPrecond.hasNext() == true) {
+                if (firstPrecond.hasNext()) {
                     chPreconditions[0][i] = firstPrecond.nextInt();
                 }
             }
             for (int i = 0; i < chPreconditions[1].length; i++) {
-                if (secondPrecond.hasNext() == true) {
+                if (secondPrecond.hasNext()) {
                     chPreconditions[1][i] = secondPrecond.nextInt();
                 }
             }
@@ -73,30 +73,59 @@ public class Quete {
         }
     }
 
+    /**
+     * retourne le numero de la quete appelante
+     * @return chNumero
+     */
     public int getChNumero() {
         return chNumero;
     }
 
+    /**
+     * retourne la position x de la quete appelante
+     * @return chX
+     */
     public int getChX() {
         return chX;
     }
 
+    /**
+     * retourne la position y de la quete appelante
+     * @return chY
+     */
     public int getChY() {
         return chY;
     }
 
+    /**
+     * retourne la duree de la quete appelante
+     * @return chDuree
+     */
     public int getChDuree() {
         return chDuree;
     }
 
+    /**
+     * retourne l'experience qu'apporte la quete appelante
+     * (ou bien l'experience necessaire si c'est la quete finale qui appelle cette méthode)
+     * @return chExperience
+     */
     public int getChExperience() {
         return chExperience;
     }
 
+    /**
+     * retourne l'intitule de la quete appelante
+     * @return chIntitule
+     */
     public String getChIntitule() {
         return chIntitule;
     }
 
+    /**
+     * retourne les preconditions de la quete appelante
+     * @return chPrecondition
+     */
     public int[][] getChPreconditions() {
         return chPreconditions;
     }

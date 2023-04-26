@@ -18,6 +18,10 @@ public class Scenario {
         chQuetes.add(quete);
     }
 
+    /**
+     * retourne la liste des quetes du scenario appelant
+     * @return chQuetes
+     */
     public ArrayList<Quete> getChQuetes() {
         return chQuetes;
     }
