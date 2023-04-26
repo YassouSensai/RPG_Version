@@ -131,6 +131,23 @@ public class Quete {
     }
 
     /**
+     * Cette methode renvoi true si la quete appelante est la quete finale.
+     * renvoi false si non.
+     * @return boolean
+     */
+    public boolean estQueteFinale() {
+
+    }
+
+    /**
+     * Cette methode permet de savoir si une quete possede des preconditions ou non
+     * @return boolean
+     */
+    public boolean possedePreconditions() {
+
+    }
+
+    /**
      * Méthode toString de la calsse Quete.
      * permet d'afficher une quête de manière très simple.
      * @return
