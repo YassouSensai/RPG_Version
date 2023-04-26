@@ -29,7 +29,7 @@ public class Scenario {
     /**
      * Méthode toString de la classe Scenario.
      * Elle permet d'afficher toutes les quêtes du scenario de la partie.
-     * @return
+     * @return String
      */
     public String toString() {
         return(chQuetes.size() + " " + chQuetes.toString());
