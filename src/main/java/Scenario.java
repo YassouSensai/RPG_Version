@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
 public class Scenario {
-    ArrayList<Quete> parQuetes;
+    ArrayList<Quete> chQuetes;
 
     /**
      * Constructeur de la classe Scenario.
      */
     public Scenario(){
-        parQuetes = new ArrayList<Quete>();
+        chQuetes = new ArrayList<Quete>();
     }
 
     /**
@@ -15,7 +15,11 @@ public class Scenario {
      * @param quete
      */
     public void ajout(Quete quete) {
-        parQuetes.add(quete);
+        chQuetes.add(quete);
+    }
+
+    public ArrayList<Quete> getChQuetes() {
+        return chQuetes;
     }
 
     /**
@@ -24,6 +28,6 @@ public class Scenario {
      * @return
      */
     public String toString() {
-        return(parQuetes.size() + " " + parQuetes.toString());
+        return(chQuetes.size() + " " + chQuetes.toString());
     }
 }
