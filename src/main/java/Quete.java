@@ -136,7 +136,7 @@ public class Quete {
      * @return boolean
      */
     public boolean estQueteFinale() {
-
+        return this.chNumero == 0;
     }
 
     /**
