@@ -4,7 +4,8 @@ public class Quete {
 
     //
     int parNumero;
-    int [] parPosition =new int [2];
+    int parX;
+    int parY;
     int parDuree;
     int parExperience;
     int [][] parPreconditions = new int [2][2];
@@ -26,9 +27,13 @@ public class Quete {
             pos = pos.replace("(", "");
             pos = pos.replace(")", "");
             Scanner scanPos = new Scanner(pos).useDelimiter(", ");
-            for (int x=0; x < parPosition.length; x++) {
-                parPosition[x] = scanPos.nextInt();
+            int [] tabPosition = new int [2];
+            for (int x=0; x < tabPosition.length; x++) {
+                tabPosition[x] = scanPos.nextInt();
             }
+
+            parX = tabPosition[0];
+            parY = tabPosition[1];
 
             Scanner preconditions = new Scanner(scanner.next()).useDelimiter(",");
             String premierePrecondition = "";
