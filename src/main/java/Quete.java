@@ -3,13 +3,13 @@ import java.util.Scanner;
 public class Quete {
 
     //
-    int parNumero;
-    int parX;
-    int parY;
-    int parDuree;
-    int parExperience;
-    int [][] parPreconditions = new int [2][2];
-    String parIntitule;
+    int chNumero;
+    int chX;
+    int chY;
+    int chDuree;
+    int chExperience;
+    int [][] chPreconditions = new int [2][2];
+    String chIntitule;
 
     /**
      * Constructeur de la classe Quete.
@@ -21,7 +21,7 @@ public class Quete {
     public Quete(String ligne) {
         Scanner scanner = new Scanner(ligne).useDelimiter("\\|");
         while (scanner.hasNext()) {
-            this.parNumero = scanner.nextInt();
+            this.chNumero = scanner.nextInt();
 
             String pos = scanner.next();
             pos = pos.replace("(", "");
@@ -32,17 +32,17 @@ public class Quete {
                 tabPosition[x] = scanPos.nextInt();
             }
 
-            parX = tabPosition[0];
-            parY = tabPosition[1];
+            chX = tabPosition[0];
+            chY = tabPosition[1];
 
             Scanner preconditions = new Scanner(scanner.next()).useDelimiter(",");
             String premierePrecondition = "";
             String deuxiemePrecondition = "";
 
-            if (preconditions.hasNext() == true) {
+            if (preconditions.hasNext()) {
                 premierePrecondition = preconditions.next();
             }
-            if (preconditions.hasNext() == true) {
+            if (preconditions.hasNext()) {
                 deuxiemePrecondition = preconditions.next();
             }
 
@@ -56,21 +56,49 @@ public class Quete {
             Scanner firstPrecond = new Scanner(premierePrecondition).useDelimiter(",");
             Scanner secondPrecond = new Scanner(premierePrecondition).useDelimiter(",");
 
-            for (int i=0; i < parPreconditions[0].length; i++) {
+            for (int i = 0; i < chPreconditions[0].length; i++) {
                 if (firstPrecond.hasNext() == true) {
-                    parPreconditions[0][i] = firstPrecond.nextInt();
+                    chPreconditions[0][i] = firstPrecond.nextInt();
                 }
             }
-            for (int i=0; i < parPreconditions[1].length; i++) {
+            for (int i = 0; i < chPreconditions[1].length; i++) {
                 if (secondPrecond.hasNext() == true) {
-                    parPreconditions[1][i] = secondPrecond.nextInt();
+                    chPreconditions[1][i] = secondPrecond.nextInt();
                 }
             }
 
-            this.parDuree = scanner.nextInt();
-            this.parExperience = scanner.nextInt();
-            this.parIntitule = scanner.next();
+            this.chDuree = scanner.nextInt();
+            this.chExperience = scanner.nextInt();
+            this.chIntitule = scanner.next();
         }
+    }
+
+    public int getChNumero() {
+        return chNumero;
+    }
+
+    public int getChX() {
+        return chX;
+    }
+
+    public int getChY() {
+        return chY;
+    }
+
+    public int getChDuree() {
+        return chDuree;
+    }
+
+    public int getChExperience() {
+        return chExperience;
+    }
+
+    public String getChIntitule() {
+        return chIntitule;
+    }
+
+    public int[][] getChPreconditions() {
+        return chPreconditions;
     }
 
     /**
@@ -79,6 +107,6 @@ public class Quete {
      * @return
      */
     public String toString() {
-        return("quete " + this.parNumero + " : " + this.parIntitule);
+        return("quete " + this.chNumero + " : " + this.chIntitule);
     }
 }
