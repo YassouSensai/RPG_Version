@@ -33,6 +33,22 @@ public class NiveauUNParametre {
     }
 
     /**
+     * la methode solutionEfficace() renvoie un tableau avec les quetes dans l'ordre pour une solution dite efficace
+     * @return Quete[]
+     */
+    public Quete[] solutionEfficace() {
+        return new Quete[]{queteFinale};
+    }
+
+    /**
+     * la methode solutionexhaustive() renvoie un tableau avec les quetes dans l'ordre pour une solution dite exhaustive
+     * @return Quete[]
+     */
+    public Quete[] solutionExhaustive() {
+        return new Quete[]{queteFinale};
+    }
+
+    /**
      * Methode toString de la classe NiveauUN
      * @return String
      */
