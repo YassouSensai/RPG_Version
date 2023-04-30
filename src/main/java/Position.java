@@ -1,3 +1,5 @@
+import static java.lang.Math.abs;
+
 public class Position {
     int x;
     int y;
@@ -40,7 +42,7 @@ public class Position {
      * @return int
      */
     public int deplacement(Position parPosition) {
-        return 0;
+        return abs(this.x - parPosition.getX()) + abs(this.y - parPosition.getY());
     }
 
     public String toString() {
