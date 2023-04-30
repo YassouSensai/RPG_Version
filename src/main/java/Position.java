@@ -21,6 +21,18 @@ public class Position {
         y = parQuete.getChY();
     }
 
+    /**
+     * accesseur du champ x
+     * @return int
+     */
+    public int getX() {return x;}
+
+    /**
+     * accesseur du champs y
+     * @return int
+     */
+    public int getY() {return y;}
+
     public String toString() {
         return "(" + x + "," + y + ")";
     }
