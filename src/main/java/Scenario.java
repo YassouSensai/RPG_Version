@@ -11,7 +11,7 @@ public class Scenario {
     }
 
     /**
-     * La méthode ajout de cette classe permet d'ajouter une quête au scenario de la partie.
+     * La methode ajout de cette classe permet d'ajouter une quête au scenario de la partie.
      * @param quete
      */
     public void ajout(Quete quete) {
@@ -24,6 +24,21 @@ public class Scenario {
      */
     public ArrayList<Quete> getChQuetes() {
         return chQuetes;
+    }
+
+    /**
+     * La methode queteFinale() renvoi la quete finale du scenario
+     * c'est à dire la quete qui possède le numéro 0
+     * @return Quete
+     */
+    public Quete queteFinale() {
+        Quete queteZero = null;
+        for (Quete quete : chQuetes) {
+            if (quete.chNumero == 0) {
+                queteZero = quete;
+            }
+        }
+        return queteZero;
     }
 
     /**
