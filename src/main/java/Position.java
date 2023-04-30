@@ -33,6 +33,16 @@ public class Position {
      */
     public int getY() {return y;}
 
+    /**
+     * la methode deplacement() renvoi le nombre d'unite de temps que necessite
+     * le deplacement de la position appelante à la position en parametre
+     * @param parPosition
+     * @return int
+     */
+    public int deplacement(Position parPosition) {
+        return 0;
+    }
+
     public String toString() {
         return "(" + x + "," + y + ")";
     }
