@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class NiveauUN {
+public class NiveauUNParametre {
     Scenario scenarioEnCour;
     Quete queteFinale;
     ArrayList<Quete> quetesSansPreconditions;
@@ -12,7 +12,7 @@ public class NiveauUN {
      * Constructeur de la classe NiveauUN
      * @param parScenario
      */
-    public NiveauUN(Scenario parScenario) {
+    public NiveauUNParametre(Scenario parScenario) {
         scenarioEnCour = parScenario;
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
