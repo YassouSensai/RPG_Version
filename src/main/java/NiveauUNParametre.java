@@ -3,8 +3,9 @@ import java.util.ArrayList;
 public class NiveauUNParametre {
     Scenario scenarioEnCour;
     Quete queteFinale;
-    ArrayList<Quete> quetesSansPreconditions;
-    ArrayList<Quete> quetesAvecPreconditions;
+    Quete queteEnCour;
+    ArrayList<Quete> quetesSansPreconditions = new ArrayList<>();
+    ArrayList<Quete> quetesAvecPreconditions = new ArrayList<>();
     int experienceAccumulee = 0;
     int experienceNecessaireQueteFinale;
     Position positionDepart = new Position(0,0);
@@ -25,7 +26,9 @@ public class NiveauUNParametre {
                     quetesAvecPreconditions.add(quete);
                 }
             }
-            quetesSansPreconditions.add(quete);
+            else {
+                quetesSansPreconditions.add(quete);
+            }
         }
     }
 
