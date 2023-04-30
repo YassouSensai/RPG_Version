@@ -7,6 +7,8 @@ public class NiveauUNParametre {
     ArrayList<Quete> quetesAvecPreconditions;
     int experienceAccumulee = 0;
     int experienceNecessaireQueteFinale;
+    Position positionDepart = new Position(0,0);
+    Position positionSuivante;
 
     /**
      * Constructeur de la classe NiveauUN
