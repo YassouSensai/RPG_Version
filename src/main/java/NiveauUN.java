@@ -16,6 +16,15 @@ public class NiveauUN {
         scenarioEnCour = parScenario;
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
+
+        for (Quete quete : parScenario.getChQuetes()) {
+            if (quete.possedePreconditions()) {
+                if (!quete.estQueteFinale()) {
+                    quetesAvecPreconditions.add(quete);
+                }
+            }
+            quetesSansPreconditions.add(quete);
+        }
     }
 
     /**
