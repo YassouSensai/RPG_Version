@@ -20,4 +20,8 @@ public class Position {
         x = parQuete.getChX();
         y = parQuete.getChY();
     }
+
+    public String toString() {
+        return "(" + x + "," + y + ")";
+    }
 }
