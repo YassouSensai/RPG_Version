@@ -161,7 +161,12 @@ public class Quete {
      * @return int
      */
     public int nbPreconditions() {
-        return 0;
+        if (chPreconditions[0][0] != 0)
+            return 1;
+        if (chPreconditions[1][0] != 0)
+            return 2;
+        else
+            return 0;
     }
 
     /**
