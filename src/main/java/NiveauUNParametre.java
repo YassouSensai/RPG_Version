@@ -1,15 +1,15 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class NiveauUNParametre {
     Scenario scenarioEnCour;
     Quete queteFinale;
-    Quete queteEnCour;
-    ArrayList<Quete> quetesSansPreconditions = new ArrayList<>();
-    ArrayList<Quete> quetesAvecPreconditions = new ArrayList<>();
     int experienceAccumulee = 0;
     int experienceNecessaireQueteFinale;
+    int[] quetesRealisee;
     Position positionDepart = new Position(0,0);
     Position positionSuivante;
+    int dureeAccumulee = 0;
 
     /**
      * Constructeur de la classe NiveauUN
@@ -19,16 +19,57 @@ public class NiveauUNParametre {
         scenarioEnCour = parScenario;
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
+        quetesRealisee = new int[scenarioEnCour.getChQuetes().size()];
+    }
 
-        for (Quete quete : parScenario.getChQuetes()) {
-            if (quete.possedePreconditions()) {
-                if (!quete.estQueteFinale()) {
-                    quetesAvecPreconditions.add(quete);
-                }
-            }
-            else {
-                quetesSansPreconditions.add(quete);
-            }
+    /**
+     * cette methode permet d'ajouter une quete à la solution et de réaliser
+     * les manipulations supplémentaires nécessaires
+     * @param indice
+     */
+    private void realisonLaQuete(Quete queteEnCour, int indice, Quete[] solution, ArrayList<Quete> scenarioListe) {
+        solution[indice] = queteEnCour;
+        quetesRealisee[indice] = queteEnCour.getChNumero();
+        scenarioListe.remove(queteEnCour);
+    }
+
+    /**
+     * Cette methode permet de faire les étapes nécessaires si la prochaine quete à réaliser possede une seule precondition
+     * @param preconditions
+     * @param queteEnCour
+     * @param indice
+     * @param solution
+     * @param scenarioListe
+     */
+    private void realisationLaQueteSiUnePrecondition(int [][] preconditions, Quete queteEnCour, int indice, Quete[] solution, ArrayList<Quete> scenarioListe) {
+        if (preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
+        }
+        if (Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
+        }
+    }
+
+    /**
+     * Cette methode permet de faire les étapes nécessaires si la prochaine quete à réaliser possede deux preconditions
+     * @param preconditions
+     * @param queteEnCour
+     * @param indice
+     * @param solution
+     * @param scenarioListe
+     */
+    private void realisationLaQueteSiDeuxPreconditions(int [][] preconditions, Quete queteEnCour, int indice, Quete[] solution, ArrayList<Quete> scenarioListe) {
+        if ((preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (preconditions[1][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
+        }
+        if ((preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (Arrays.asList(quetesRealisee).contains(preconditions[1][1]) || Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
+        }
+        if ((Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (preconditions[1][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
+        }
+        if ((Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (Arrays.asList(quetesRealisee).contains(preconditions[1][1]) || Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+            realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
     }
 
@@ -37,7 +78,35 @@ public class NiveauUNParametre {
      * @return Quete[]
      */
     public Quete[] solutionEfficace() {
-        return new Quete[]{queteFinale};
+        ArrayList<Quete> scenarioListe = scenarioEnCour.getChQuetes();
+        Quete[] solution = new Quete[scenarioListe.size()];
+
+        while (experienceAccumulee < experienceNecessaireQueteFinale) {
+            for (int i=0; i < scenarioListe.size(); i++) {
+                Quete queteEnCour = scenarioListe.get(i);
+
+                if (!queteEnCour.possedePreconditions()) {
+                    realisonLaQuete(queteEnCour, i, solution, scenarioListe);
+                }
+                if (queteEnCour.possedePreconditions()) {
+                    int nbPreconditions = queteEnCour.nbPreconditions();
+                    int [][] preconditions = queteEnCour.getChPreconditions();
+                    if (nbPreconditions == 1) {
+                        realisationLaQueteSiUnePrecondition(preconditions, queteEnCour, i, solution, scenarioListe);
+                    }
+                    if (nbPreconditions == 2) {
+                        realisationLaQueteSiDeuxPreconditions(preconditions, queteEnCour, i, solution, scenarioListe);
+                    }
+                }
+            }
+        }
+        if (!Arrays.asList(quetesRealisee).contains(queteFinale)) {
+            solution[solution.length-1] = queteFinale;
+            quetesRealisee[quetesRealisee.length-1] = queteFinale.getChNumero();
+            scenarioListe.remove(queteFinale);
+        }
+
+        return solution;
     }
 
     /**
