@@ -169,6 +169,11 @@ public class Quete {
             return 0;
     }
 
+
+    public boolean estRealisee(Quete[] parTabQuetes) {
+        return false;
+    }
+
     /**
      * Méthode toString de la calsse Quete.
      * permet d'afficher une quête de manière très simple.
