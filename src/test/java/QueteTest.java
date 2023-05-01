@@ -1,3 +1,5 @@
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueteTest {
@@ -24,5 +26,10 @@ class QueteTest {
         for (int i=0; i < tabQuetes.length; i++) {
             assertTrue(tabQuetes[i].estQueteFinale() == tabReponses[i]);
         }
+    }
+
+    @Test
+    void nbPreconditions() {
+        System.out.println("Test de la methode nbPreconditions");
     }
 }
