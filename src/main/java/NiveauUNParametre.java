@@ -22,6 +22,10 @@ public class NiveauUNParametre {
         quetesRealisee = new int[scenarioEnCour.getChQuetes().size()];
     }
 
+    private boolean estRealisee(int precondition) {
+        return Arrays.asList(quetesRealisee).contains(precondition);
+    }
+
     /**
      * cette methode permet d'ajouter une quete à la solution et de réaliser
      * les manipulations supplémentaires nécessaires
@@ -42,10 +46,10 @@ public class NiveauUNParametre {
      * @param scenarioListe
      */
     private void realisationLaQueteSiUnePrecondition(int [][] preconditions, Quete queteEnCour, int indice, Quete[] solution, ArrayList<Quete> scenarioListe) {
-        if (preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) {
+        if (preconditions[0][1] == 0 && estRealisee(preconditions[0][0])) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
-        if (Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) {
+        if (estRealisee(preconditions[0][1]) || estRealisee(preconditions[0][0])) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
     }
@@ -59,16 +63,16 @@ public class NiveauUNParametre {
      * @param scenarioListe
      */
     private void realisationLaQueteSiDeuxPreconditions(int [][] preconditions, Quete queteEnCour, int indice, Quete[] solution, ArrayList<Quete> scenarioListe) {
-        if ((preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (preconditions[1][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+        if ((preconditions[0][1] == 0 && estRealisee(preconditions[0][0])) && (preconditions[1][1] == 0 && estRealisee(preconditions[1][0]))) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
-        if ((preconditions[0][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (Arrays.asList(quetesRealisee).contains(preconditions[1][1]) || Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+        if ((preconditions[0][1] == 0 && estRealisee(preconditions[0][0])) && (estRealisee(preconditions[1][1]) || estRealisee(preconditions[1][0]))) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
-        if ((Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (preconditions[1][1] == 0 && Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+        if ((estRealisee(preconditions[0][1]) || estRealisee(preconditions[0][0])) && (preconditions[1][1] == 0 && estRealisee(preconditions[1][0]))) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
-        if ((Arrays.asList(quetesRealisee).contains(preconditions[0][1]) || Arrays.asList(quetesRealisee).contains(preconditions[0][0])) && (Arrays.asList(quetesRealisee).contains(preconditions[1][1]) || Arrays.asList(quetesRealisee).contains(preconditions[1][0]))) {
+        if ((estRealisee(preconditions[0][1]) || estRealisee(preconditions[0][0])) && (estRealisee(preconditions[1][1]) || estRealisee(preconditions[1][0]))) {
             realisonLaQuete(queteEnCour, indice, solution, scenarioListe);
         }
     }
@@ -81,7 +85,7 @@ public class NiveauUNParametre {
         ArrayList<Quete> scenarioListe = scenarioEnCour.getChQuetes();
         Quete[] solution = new Quete[scenarioListe.size()];
 
-        while (experienceAccumulee < experienceNecessaireQueteFinale) {
+        while (experienceAccumulee < experienceNecessaireQueteFinale || !estRealisee(0)) {
             for (int i=0; i < scenarioListe.size(); i++) {
                 Quete queteEnCour = scenarioListe.get(i);
 
