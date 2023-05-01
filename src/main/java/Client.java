@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.Arrays;
 
 public class Client {
     public static void main (String [] args) {
@@ -20,6 +21,12 @@ public class Client {
 
         System.out.println("\ntest affichage 4");
         System.out.println(new Position(0,0).deplacement(new Position(new Quete("1|(3, 1)|()|2|50|dialoguer avec Alaric le mage noir"))));
+
+        System.out.println("\ntest affichage 5");
+        NiveauUNParametre niveauUN = new NiveauUNParametre(scenario0);
+        Arrays.toString(niveauUN.solutionEfficace());
+
+
 
     }
 }
