@@ -157,6 +157,14 @@ public class Quete {
     }
 
     /**
+     * Cette methode renvoi le nombre de preconditions necessaires pour la quete
+     * @return int
+     */
+    public int nbPreconditions() {
+        return 0;
+    }
+
+    /**
      * Méthode toString de la calsse Quete.
      * permet d'afficher une quête de manière très simple.
      * @return
