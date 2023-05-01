@@ -31,5 +31,12 @@ class QueteTest {
     @Test
     void nbPreconditions() {
         System.out.println("Test de la methode nbPreconditions");
+
+        Quete [] tabQuetes = {new Quete("1|(4, 3)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire")};
+        int [] tabreponses = {0,1};
+
+        for (int i=0; i < tabQuetes.length; i++) {
+            assertEquals(tabQuetes[i].nbPreconditions(), tabreponses[i]);
+        }
     }
 }
