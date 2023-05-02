@@ -39,6 +39,7 @@ public class NiveauUNParametre {
     private boolean preconditionsValidee(Quete queteEnCour) {
         int[][] preconditions = queteEnCour.getChPreconditions();
 
+
     }
 
 
