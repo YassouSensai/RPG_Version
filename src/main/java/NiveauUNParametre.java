@@ -57,12 +57,17 @@ public class NiveauUNParametre {
      * @param solution
      */
     private void realisonLaQuete(Quete queteEnCour, ArrayList<Quete> solution) {
-        quetesRealisee.add(queteEnCour.getChNumero());
-        solution.add(queteEnCour);
-
-        if (queteEnCour != queteFinale) {
-            experienceAccumulee += queteEnCour.getChExperience();
+        if (preconditionsValidee(queteEnCour)) {
+            if (queteEnCour == queteFinale && experienceAccumulee >= experienceNecessaireQueteFinale) {
+                quetesRealisee.add(queteEnCour.getChNumero());
+                solution.add(queteEnCour);
+            } else {
+                quetesRealisee.add(queteEnCour.getChNumero());
+                solution.add(queteEnCour);
+                experienceAccumulee += queteEnCour.getChExperience();
+            }
         }
+
     }
 
 
@@ -78,13 +83,10 @@ public class NiveauUNParametre {
 
         while (!estRealisee(0)) {
             for (Quete queteEnCour : scenarioEnCour.getChQuetes()) {
-
-                // traitement de la quete finale
-                if (queteEnCour == queteFinale) {
-                    if (experienceAccumulee >= experienceNecessaireQueteFinale) {
-                        realisonLaQuete(queteEnCour, solution);
-                    }
-                }
+                if (estRealisee(0))
+                    break;
+                realisonLaQuete(queteFinale,solution);
+                realisonLaQuete(queteEnCour, solution);
             }
         }
 
