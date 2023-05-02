@@ -38,8 +38,16 @@ public class NiveauUNParametre {
      */
     private boolean preconditionsValidee(Quete queteEnCour) {
         int[][] preconditions = queteEnCour.getChPreconditions();
+        int nbPreconditions = queteEnCour.nbPreconditions();
 
-
+        if (nbPreconditions == 0) {
+            return true;
+        } else if (nbPreconditions == 1) {
+            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1]));
+        }
+        else {
+            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1])) && (estRealisee(preconditions[1][0]) || estRealisee(preconditions[1][1]));
+        }
     }
 
 
