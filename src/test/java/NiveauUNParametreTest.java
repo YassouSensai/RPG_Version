@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class NiveauUNParametreTest {
@@ -16,5 +19,13 @@ class NiveauUNParametreTest {
 
     @Test
     void rechercheQuete() {
+        NiveauUNParametre niveauUNTest = new NiveauUNParametre(new LectureFichierTexte().lecture(new File("scenarios"+ File.separator+"scenario_0.txt")));
+        ArrayList<Quete> niveauUnQuetesTest = niveauUNTest.scenarioEnCour.getChQuetes();
+        int[] tabNumeroQuete = {1,2,3};
+        Quete[] tabReponse = {niveauUnQuetesTest.get(0),niveauUnQuetesTest.get(1),niveauUnQuetesTest.get(2)};
+
+        for (int i=0; i<tabNumeroQuete.length; i++) {
+            assertEquals(tabReponse[i], niveauUNTest.rechercheQuete(tabNumeroQuete[i]));
+        }
     }
 }
