@@ -3,6 +3,7 @@ import java.util.Arrays;
 
 public class NiveauUNParametre {
     Scenario scenarioEnCour;
+    ArrayList<Quete> quetesScenario;
     Quete queteFinale;
     int experienceAccumulee = 0;
     int experienceNecessaireQueteFinale;
@@ -19,6 +20,7 @@ public class NiveauUNParametre {
         scenarioEnCour = parScenario;
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
+        quetesScenario = parScenario.getChQuetes();
     }
 
     /**
