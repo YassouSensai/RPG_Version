@@ -13,4 +13,8 @@ class NiveauUNParametreTest {
     void solutionExhaustive() {
         System.out.println("Test de la methode solutionExhaustive()");
     }
+
+    @Test
+    void rechercheQuete() {
+    }
 }
