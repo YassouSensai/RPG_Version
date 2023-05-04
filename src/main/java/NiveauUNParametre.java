@@ -72,7 +72,7 @@ public class NiveauUNParametre {
 
     }
 
-    public Quete rechercheQuete(int quetePrecondition) {
+     public Quete rechercheQuete(int quetePrecondition) {
         for (Quete quete : quetesScenario) {
             if (quete.getChNumero() == quetePrecondition) {
                 return quete;
@@ -91,7 +91,6 @@ public class NiveauUNParametre {
         ArrayList<Quete> solution = new ArrayList<>();
 
         return solution;
-
     }
 
     /**
