@@ -81,15 +81,6 @@ public class NiveauUNParametre {
         quetesRealisee = new ArrayList<>();
         ArrayList<Quete> solution = new ArrayList<>();
 
-        while (!estRealisee(0)) {
-            for (Quete queteEnCour : scenarioEnCour.getChQuetes()) {
-                if (estRealisee(0))
-                    break;
-                realisonLaQuete(queteFinale,solution);
-                realisonLaQuete(queteEnCour, solution);
-            }
-        }
-
         return solution;
 
     }
