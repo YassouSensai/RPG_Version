@@ -72,7 +72,9 @@ public class NiveauUNParametre {
 
     }
 
-
+    public Quete rechercheQuete(int quetePrecondition) {
+        return quetesScenario.get(0);
+    }
 
 
     /**
