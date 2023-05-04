@@ -28,6 +28,10 @@ public class Client {
         Quete test2 = scenario0.getChQuetes().get(1);
         System.out.println(test1 == test2);
 
+        System.out.println("\ntest affichage 7");
+        NiveauUNParametre niveauUNTest = new NiveauUNParametre(scenario0);
+        System.out.println(niveauUNTest.solutionEfficace());
+
 
     }
 }
