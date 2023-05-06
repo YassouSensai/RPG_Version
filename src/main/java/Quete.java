@@ -10,6 +10,7 @@ public class Quete {
     int chExperience;
     int [][] chPreconditions = new int [2][2];
     String chIntitule;
+    boolean chRealisee = false;
 
     /**
      * Constructeur de la classe Quete.
