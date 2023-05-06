@@ -4,8 +4,7 @@ public class Quete {
 
     //
     int chNumero;
-    int chX;
-    int chY;
+    Position chPosition;
     int chDuree;
     int chExperience;
     int [][] chPreconditions = new int [2][2];
@@ -33,8 +32,7 @@ public class Quete {
                 tabPosition[x] = scanPos.nextInt();
             }
 
-            chX = tabPosition[0];
-            chY = tabPosition[1];
+            chPosition = new Position(tabPosition[0], tabPosition[1]);
 
             Scanner preconditions = new Scanner(scanner.next()).useDelimiter(",");
             String premierePrecondition = "";
@@ -82,21 +80,6 @@ public class Quete {
         return chNumero;
     }
 
-    /**
-     * retourne la position x de la quete appelante
-     * @return chX
-     */
-    public int getChX() {
-        return chX;
-    }
-
-    /**
-     * retourne la position y de la quete appelante
-     * @return chY
-     */
-    public int getChY() {
-        return chY;
-    }
 
     /**
      * retourne la duree de la quete appelante
