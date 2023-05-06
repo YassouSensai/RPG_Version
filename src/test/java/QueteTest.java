@@ -39,4 +39,18 @@ class QueteTest {
             assertEquals(tabQuetes[i].nbPreconditions(), tabreponses[i]);
         }
     }
+
+    @Test
+    void estRealisee() {
+        System.out.println("Test de la methode estRealisee()");
+
+        Quete [] tabQuetes = {new Quete("1|(4, 3)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire")};
+        tabQuetes[0].chRealisee = true;
+        boolean [] tabreponses = {true, false};
+
+        for (int i=0; i < tabQuetes.length; i++) {
+            assertEquals(tabQuetes[i].chRealisee, tabreponses[i]);
+        }
+
+    }
 }
