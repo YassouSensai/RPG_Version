@@ -115,6 +115,12 @@ public class Quete {
     }
 
     /**
+     * retourne la position de la quete appelante
+     * @return chPosition
+     */
+    public Position getChPosition() {return chPosition;}
+
+    /**
      * Cette methode renvoi true si la quete appelante est la quete finale.
      * renvoi false si non.
      * @return boolean
