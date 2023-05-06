@@ -160,8 +160,8 @@ public class Quete {
     }
 
 
-    public boolean estRealisee(Quete[] parTabQuetes) {
-        return false;
+    public boolean estRealisee() {
+        return chRealisee;
     }
 
     /**
