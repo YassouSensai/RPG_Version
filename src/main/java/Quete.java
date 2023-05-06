@@ -1,5 +1,7 @@
 import java.util.Scanner;
 
+import static java.lang.Math.abs;
+
 public class Quete {
 
     //
@@ -159,9 +161,23 @@ public class Quete {
             return 0;
     }
 
-
+    /**
+     * permet de savoir si une quete est realisee ou non
+     * @return boolean
+     */
     public boolean estRealisee() {
         return chRealisee;
+    }
+
+    /**
+     * la methode deplacement() renvoi le nombre d'unite de temps que necessite
+     * le deplacement de la quete appelante à la quete en parametre
+     * @param parQuete
+     * @return int
+     */
+    public int deplacement(Quete parQuete) {
+        Position positionQuete = parQuete.getChPosition();
+        return abs(this.chPosition.x - positionQuete.getX()) + abs(this.chPosition.y - positionQuete.getY());
     }
 
     /**
