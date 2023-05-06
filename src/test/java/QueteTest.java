@@ -53,4 +53,18 @@ class QueteTest {
         }
 
     }
+
+    @Test
+    void deplacement() {
+        System.out.println("Test de la methode deplacement()");
+
+        Quete queteAppelante = new Quete("9|(0, 0)|()|2|100|explorer pic de Bhanborim");
+        Quete [] tabQuetes = {new Quete("1|(4, 3)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire")};
+        int [] tabreponses = {7, 2};
+
+        for (int i=0; i < tabQuetes.length; i++) {
+            assertEquals(queteAppelante.deplacement(tabQuetes[i]), tabreponses[i]);
+        }
+
+    }
 }
