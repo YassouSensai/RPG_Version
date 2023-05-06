@@ -9,7 +9,6 @@ public class NiveauUNParametre {
     int experienceNecessaireQueteFinale;
     ArrayList<Integer> quetesRealisee = new ArrayList<>();
     Position positionDepart = new Position(0,0);
-    Position positionSuivante;
     int dureeAccumulee = 0;
 
     /**
@@ -21,6 +20,17 @@ public class NiveauUNParametre {
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
         quetesScenario = parScenario.getChQuetes();
+    }
+
+    /**
+     * cette méthode sert à mettre à jour les differents champs afin de pouvoir afficher une solution efficace et/ou exhaustive sans probleme
+     */
+    private void miseAJour() {
+        for (Quete quete : quetesScenario) {
+            if (quete.chRealisee)
+                quete.chRealisee = true;
+        }
+        quetesRealisee = new ArrayList<>();
     }
 
     /**
@@ -42,13 +52,58 @@ public class NiveauUNParametre {
         int[][] preconditions = queteEnCour.getChPreconditions();
         int nbPreconditions = queteEnCour.nbPreconditions();
 
-        if (nbPreconditions == 0) {
-            return true;
+        if (nbPreconditions == 2) {
+            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1])) && (estRealisee(preconditions[1][0]) || estRealisee(preconditions[1][1]));
         } else if (nbPreconditions == 1) {
             return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1]));
         }
         else {
-            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1])) && (estRealisee(preconditions[1][0]) || estRealisee(preconditions[1][1]));
+            return true;
+        }
+    }
+
+    private void siUnePreconditionNonValidee(ArrayList<Quete> solution, int[][] preconditions) {
+        Quete quete1,quete2;
+        quete1 = rechercheQuete(preconditions[0][0]);
+        if (preconditions[0][1] == 0)
+            realisonLaQuete(quete1,solution);
+
+        quete2 = rechercheQuete(preconditions[0][1]);
+        if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete2.chPosition)) {
+            realisonLaQuete(quete1, solution);
+        }
+        else {
+            realisonLaQuete(quete2, solution);
+        }
+    }
+    private void siDeuxPreconditionsNonValidees(ArrayList<Quete> solution, int[][] preconditions) {
+        Quete quete1,quete2,quete3,quete4;
+        quete1 = rechercheQuete(preconditions[0][0]);
+        quete3 = rechercheQuete(preconditions[1][0]);
+        if (preconditions[0][1] == 0 && preconditions[1][1] == 0) {
+            realisonLaQuete(quete1, solution);
+            realisonLaQuete(quete3, solution);
+
+        }
+        if (preconditions[1][1] == 0) {
+            quete2 = rechercheQuete(preconditions[0][1]);
+            if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete2.chPosition))
+                realisonLaQuete(quete1, solution);
+            else
+                realisonLaQuete(quete2, solution);
+            realisonLaQuete(quete3, solution);
+        }
+        else {
+            quete2 = rechercheQuete(preconditions[0][1]);
+            quete4 = rechercheQuete(preconditions[1][1]);
+            if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete2.chPosition))
+                realisonLaQuete(quete1, solution);
+            else
+                realisonLaQuete(quete2, solution);
+            if (positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition))
+                realisonLaQuete(quete3, solution);
+            else
+                realisonLaQuete(quete4, solution);
         }
     }
 
@@ -59,16 +114,28 @@ public class NiveauUNParametre {
      * @param solution
      */
     private void realisonLaQuete(Quete queteEnCour, ArrayList<Quete> solution) {
+        System.out.println("\n quete en cours : "+queteEnCour+"\n");
         if (preconditionsValidee(queteEnCour)) {
             if (queteEnCour == queteFinale && experienceAccumulee >= experienceNecessaireQueteFinale) {
                 quetesRealisee.add(queteEnCour.getChNumero());
                 solution.add(queteEnCour);
+                positionDepart = queteEnCour.getChPosition();
             } else {
                 quetesRealisee.add(queteEnCour.getChNumero());
                 solution.add(queteEnCour);
                 experienceAccumulee += queteEnCour.getChExperience();
+                positionDepart = queteEnCour.getChPosition();
             }
         }
+        else {
+            int nbPreconditions = queteEnCour.nbPreconditions();
+            int[][] preconditions = queteEnCour.getChPreconditions();
+            if (nbPreconditions == 1)
+                siUnePreconditionNonValidee(solution, preconditions);
+            if (nbPreconditions == 2)
+                siDeuxPreconditionsNonValidees(solution, preconditions);
+        }
+        queteEnCour.chRealisee = true;
 
     }
 
@@ -87,9 +154,12 @@ public class NiveauUNParametre {
      * @return ArrayList<Quete>
      */
     public ArrayList<Quete> solutionEfficace() {
-        quetesRealisee = new ArrayList<>();
+        miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
 
+        while (!queteFinale.chRealisee) {
+            realisonLaQuete(queteFinale, solution);
+        }
         return solution;
     }
 
