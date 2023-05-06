@@ -33,6 +33,34 @@ public class NiveauUNParametre {
         quetesRealisee = new ArrayList<>();
     }
 
+
+    /**
+     * permet de retourner une quete a partir de son numero (lorsque celle-ci se trouve dans les preconditions d'une autre quete par exemple)
+     * @param quetePrecondition
+     * @return
+     */
+    public Quete rechercheQuete(int quetePrecondition) {
+        for (Quete quete : quetesScenario) {
+            if (quete.getChNumero() == quetePrecondition) {
+                return quete;
+            }
+        }
+        return null;
+    }
+
+    public Quete queteLaPlusProche() {
+        Quete plusProches = null;
+        int deplacementMin = 15000;
+        for (Quete quete : quetesScenario) {
+            if (!estRealisee(quete.getChNumero())) {
+                int deplacementEnCour = positionDepart.deplacement(quete.chPosition);
+                if (deplacementEnCour <= deplacementMin)
+                    plusProches = quete;
+            }
+        }
+        return plusProches;
+    }
+
     /**
      * cette methode permet de verifier qu'une quete a bien été réalisée
      * @param precondition
@@ -114,39 +142,31 @@ public class NiveauUNParametre {
      * @param solution
      */
     private void realisonLaQuete(Quete queteEnCour, ArrayList<Quete> solution) {
-        System.out.println("\n quete en cours : "+queteEnCour+"\n");
-        if (preconditionsValidee(queteEnCour)) {
-            if (queteEnCour == queteFinale && experienceAccumulee >= experienceNecessaireQueteFinale) {
+        if (!estRealisee(queteEnCour.getChNumero())) {
+            System.out.println("\n quete en cours : "+queteEnCour+"\n");
+            if (preconditionsValidee(queteEnCour)) {
                 quetesRealisee.add(queteEnCour.getChNumero());
                 solution.add(queteEnCour);
                 positionDepart = queteEnCour.getChPosition();
-            } else {
-                quetesRealisee.add(queteEnCour.getChNumero());
-                solution.add(queteEnCour);
-                experienceAccumulee += queteEnCour.getChExperience();
-                positionDepart = queteEnCour.getChPosition();
+
             }
+            else {
+                int nbPreconditions = queteEnCour.nbPreconditions();
+                int[][] preconditions = queteEnCour.getChPreconditions();
+                if (nbPreconditions == 1)
+                    siUnePreconditionNonValidee(solution, preconditions);
+                if (nbPreconditions == 2)
+                    siDeuxPreconditionsNonValidees(solution, preconditions);
+            }
+            queteEnCour.chRealisee = true;
         }
-        else {
-            int nbPreconditions = queteEnCour.nbPreconditions();
-            int[][] preconditions = queteEnCour.getChPreconditions();
-            if (nbPreconditions == 1)
-                siUnePreconditionNonValidee(solution, preconditions);
-            if (nbPreconditions == 2)
-                siDeuxPreconditionsNonValidees(solution, preconditions);
-        }
-        queteEnCour.chRealisee = true;
+        if (queteEnCour != queteFinale)
+            experienceAccumulee += queteEnCour.getChExperience();
+
 
     }
 
-     public Quete rechercheQuete(int quetePrecondition) {
-        for (Quete quete : quetesScenario) {
-            if (quete.getChNumero() == quetePrecondition) {
-                return quete;
-            }
-        }
-        return null;
-    }
+
 
 
     /**
@@ -157,9 +177,14 @@ public class NiveauUNParametre {
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
 
-        while (!queteFinale.chRealisee) {
+        while (experienceAccumulee < experienceNecessaireQueteFinale) {
             realisonLaQuete(queteFinale, solution);
+            if (experienceAccumulee < experienceNecessaireQueteFinale) {
+                realisonLaQuete(queteLaPlusProche(), solution);
+            }
         }
+
+        System.out.println("experience totale : " + experienceAccumulee);
         return solution;
     }
 
