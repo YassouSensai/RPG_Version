@@ -33,5 +33,12 @@ public class Client {
         System.out.println(niveauUNTest.solutionEfficace());
 
 
+        System.out.println("\ntest perso");
+        ArrayList<Quete> test = scenario0.getChQuetes();
+        Quete quete = test.get(0);
+        quete.chNumero = 2;
+        System.out.println(quete);
+        System.out.println(test.get(0));
+
     }
 }
