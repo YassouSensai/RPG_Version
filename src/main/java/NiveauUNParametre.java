@@ -144,8 +144,11 @@ public class NiveauUNParametre {
             } else if (preconditions[0][1]==0) {
                 realisonLaQuete(quete1, solution);
                 quete4 = rechercheQuete(preconditions[1][1]);
-                if (positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition))
+                if (positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition)){
+                    System.out.println("\nsoit 3 soit 4 : ");
+                    System.out.println(positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition));
                     realisonLaQuete(quete3,solution);
+                }
                 else
                     realisonLaQuete(quete4, solution);
             } else if (preconditions[1][0] == 0) {
@@ -180,7 +183,7 @@ public class NiveauUNParametre {
      */
     private void realisonLaQuete(Quete parQuete, ArrayList<Quete> solution) {
         if (preconditionsValidee(parQuete)) {
-            System.out.println("\nQuete en cours : "+ parQuete);
+            System.out.println("\nQuete en cours : "+ parQuete+"\nnombre de preconditions : "+parQuete.nbPreconditions());
             dureeAccumulee += positionDepart.deplacement(parQuete.chPosition) + parQuete.getChDuree();
             positionDepart = parQuete.getChPosition();
             solution.add(parQuete);

@@ -1,5 +1,8 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class QueteTest {
@@ -33,10 +36,18 @@ class QueteTest {
         System.out.println("Test de la methode nbPreconditions");
 
         Quete [] tabQuetes = {new Quete("1|(4, 3)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire")};
-        int [] tabreponses = {0,1};
+        int [] tabReponses = {0,1};
+
+        ArrayList<Quete> tabQuetesV2 = new LectureFichierTexte().lecture(new File("scenarios"+ File.separator+"scenario_1.txt")).getChQuetes();
+        int[] tabReponsesV2 = {1,2,2,0,0,1};
 
         for (int i=0; i < tabQuetes.length; i++) {
-            assertEquals(tabQuetes[i].nbPreconditions(), tabreponses[i]);
+            assertEquals(tabQuetes[i].nbPreconditions(), tabReponses[i]);
+        }
+
+        for (int i=0; i<tabReponsesV2.length; i++) {
+            System.out.println(tabQuetesV2.get(i));
+            assertEquals(tabReponsesV2[i], tabQuetesV2.get(i).nbPreconditions());
         }
     }
 
