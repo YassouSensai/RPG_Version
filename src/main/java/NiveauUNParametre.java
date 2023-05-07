@@ -60,9 +60,9 @@ public class NiveauUNParametre {
 
     /**
      * Cette quete permet de retourner la quete la plus proche qui n'a pas encore été effectué
-     * @return
+     * @return Quete
      */
-    public Quete queteLaPlusProche() {
+    private Quete queteLaPlusProche() {
         Quete plusProches = null;
         int deplacementMin = 15000;
         for (Quete quete : quetesScenario) {
