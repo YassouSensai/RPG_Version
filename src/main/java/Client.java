@@ -26,17 +26,20 @@ public class Client {
         Quete test2 = scenario0.getChQuetes().get(1);
         System.out.println(test1 == test2);
 
+/*
         System.out.println("\ntest affichage 7");
         NiveauUNParametre niveauUNTest = new NiveauUNParametre(scenario0);
         System.out.println(niveauUNTest.solutionEfficace());
-
-
+*/
         System.out.println("\ntest perso");
         ArrayList<Quete> test = scenario0.getChQuetes();
         Quete quete = test.get(0);
         quete.chNumero = 2;
         System.out.println(quete);
         System.out.println(test.get(0));
+
+        System.out.println("\n");
+        System.out.println(new Quete("1|(1, 1)|((2,),)|4|350|vaincre Araignée lunaire").nbPreconditions());
 
     }
 }
