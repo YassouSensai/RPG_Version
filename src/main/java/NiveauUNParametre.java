@@ -76,6 +76,43 @@ public class NiveauUNParametre {
     }
 
 
+    /**
+     * Cette methode permet de dire si les preconditions d'une quete sont validee (ici on parle des preconditions de quete)
+     * Les verifications se font donc sur le champs chPreconditions d'une quete
+     * @param parQuete
+     * @return boolean
+     */
+    private boolean quetePreconditionsValidee(Quete parQuete) {
+        int nbPrecondition = parQuete.nbPreconditions();
+        int[][] preconditions = parQuete.getChPreconditions();
+
+        if (nbPrecondition == 2) {
+            return ((estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1])) && (estRealisee(preconditions[1][0]) || estRealisee(preconditions[1][1])));
+        }
+        else if (nbPrecondition == 1) {
+            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1]));
+        }
+        else {
+            return true;
+        }
+    }
+
+    /**
+     * cette methode permet de dire si les preconditions de n'importe quelle quete sont validee ou non
+     * (quete normale ou quete finale)
+     * @param parQuete
+     * @return boolean
+     */
+    private boolean preconditionsValidee(Quete parQuete) {
+        if (parQuete.estQueteFinale()) {
+            return (experienceAccumulee >= experienceNecessaireQueteFinale && quetePreconditionsValidee(parQuete));
+        }
+        else {
+            return quetePreconditionsValidee(parQuete);
+        }
+    }
+
+
 
 
 
