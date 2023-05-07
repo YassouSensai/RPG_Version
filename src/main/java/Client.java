@@ -4,7 +4,9 @@ import java.util.Arrays;
 
 public class Client {
     public static void main (String [] args) {
-        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_1.txt");
+
+
+        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_2.txt");
 
         LectureFichierTexte premiereLecture = new LectureFichierTexte();
         Scenario scenario0 = premiereLecture.lecture(fichierScenario0);
@@ -26,20 +28,20 @@ public class Client {
         Quete test2 = scenario0.getChQuetes().get(1);
         System.out.println(test1 == test2);
 
-/*
+
         System.out.println("\ntest affichage 7");
         NiveauUNParametre niveauUNTest = new NiveauUNParametre(scenario0);
         System.out.println(niveauUNTest.solutionEfficace());
-*/
+/*
         System.out.println("\ntest perso");
         ArrayList<Quete> test = scenario0.getChQuetes();
         Quete quete = test.get(0);
         quete.chNumero = 2;
         System.out.println(quete);
         System.out.println(test.get(0));
-
+*/
         System.out.println("\n");
-        System.out.println(new Quete("1|(1, 1)|((2,),)|4|350|vaincre Araignée lunaire").nbPreconditions());
+        System.out.println(new Quete("3|(1, 0)|()|7|100|dialoguer avec Morrigan la déesse de la mort").nbPreconditions());
 
     }
 }
