@@ -50,9 +50,11 @@ public class Quete {
 
             premierePrecondition = premierePrecondition.replace("(", "");
             premierePrecondition = premierePrecondition.replace(")", "");
+            premierePrecondition = premierePrecondition.replace(" ", "");
 
             deuxiemePrecondition = deuxiemePrecondition.replace("(", "");
             deuxiemePrecondition = deuxiemePrecondition.replace(")", "");
+            deuxiemePrecondition = deuxiemePrecondition.replace(" ", "");
 
             Scanner firstPrecond = new Scanner(premierePrecondition).useDelimiter(",");
             Scanner secondPrecond = new Scanner(premierePrecondition).useDelimiter(",");
@@ -159,12 +161,13 @@ public class Quete {
      * @return int
      */
     public int nbPreconditions() {
-        if (chPreconditions[0][0] != 0)
-            return 1;
         if (chPreconditions[1][0] != 0)
             return 2;
+        else if (chPreconditions[1][0] == 0)
+            return 1;
         else
             return 0;
+
     }
 
     /**

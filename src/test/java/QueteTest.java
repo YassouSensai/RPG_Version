@@ -42,7 +42,8 @@ class QueteTest {
         int[] tabReponsesV2 = {1,2,2,0,0,1};
 
         for (int i=0; i < tabQuetes.length; i++) {
-            assertEquals(tabQuetes[i].nbPreconditions(), tabReponses[i]);
+            System.out.println(tabQuetes[i]);
+            assertEquals(tabReponses[i], tabQuetes[i].nbPreconditions());
         }
 
         for (int i=0; i<tabReponsesV2.length; i++) {
