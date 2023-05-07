@@ -211,6 +211,7 @@ public class NiveauUNParametre {
         ArrayList<Quete> solution = new ArrayList<>();
         while (!queteFinale.estRealisee()) {
             realisonLaQuete(queteFinale, solution);
+
         }
 
 
