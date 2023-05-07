@@ -123,6 +123,12 @@ public class Quete {
     public Position getChPosition() {return chPosition;}
 
     /**
+     * methode qui permet de modifier le champ chRealisee d'une quete
+     * @param parametre
+     */
+    public void setChRealisee(boolean parametre) {chRealisee = parametre;}
+
+    /**
      * Cette methode renvoi true si la quete appelante est la quete finale.
      * renvoi false si non.
      * @return boolean
@@ -168,6 +174,8 @@ public class Quete {
     public boolean estRealisee() {
         return chRealisee;
     }
+
+
 
     /**
      * la methode deplacement() renvoi le nombre d'unite de temps que necessite
