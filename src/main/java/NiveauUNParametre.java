@@ -63,10 +63,10 @@ public class NiveauUNParametre {
      * @return Quete
      */
     private Quete queteLaPlusProche() {
-        Quete plusProches = null;
+        Quete plusProches = queteFinale;
         int deplacementMin = 15000;
         for (Quete quete : quetesScenario) {
-            if (!estRealisee(quete.getChNumero())) {
+            if (!quete.estRealisee() && preconditionsValidee(quete)) {
                 int deplacementEnCour = positionDepart.deplacement(quete.chPosition);
                 if (deplacementEnCour <= deplacementMin)
                     plusProches = quete;
@@ -87,10 +87,10 @@ public class NiveauUNParametre {
         int[][] preconditions = parQuete.getChPreconditions();
 
         if (nbPrecondition == 2) {
-            return ((estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1])) && (estRealisee(preconditions[1][0]) || estRealisee(preconditions[1][1])));
+            return ((estRealisee(parQuete.precond1) || estRealisee(parQuete.precond2)) && (estRealisee(parQuete.precond3) || estRealisee(parQuete.precond4)));
         }
         else if (nbPrecondition == 1) {
-            return (estRealisee(preconditions[0][0]) || estRealisee(preconditions[0][1]));
+            return ((estRealisee(parQuete.precond1) || estRealisee(parQuete.precond2)));
         }
         else {
             return true;
@@ -114,6 +114,9 @@ public class NiveauUNParametre {
 
     /**
      * Cette methode permet de realiser les preconditions d'une quete
+     *
+     * edit : Cette méthode pourra servir pour le niveau 2
+     *
      * @param parQuete
      * @param solution
      */
@@ -195,10 +198,6 @@ public class NiveauUNParametre {
 
             System.out.println("\ntotal xp : "+ experienceAccumulee + "\nduree accumulee : " + dureeAccumulee);
         }
-        else if (!preconditionsValidee(parQuete)) {
-            System.out.println("\nprecondtions de quete "+parQuete.getChNumero()+" non validee !");
-            realisonsLesPreconditions(parQuete, solution);
-        }
     }
 
 
@@ -213,10 +212,13 @@ public class NiveauUNParametre {
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
         while (!queteFinale.estRealisee()) {
-            realisonLaQuete(queteFinale, solution);
+            Quete queteARealiser = queteLaPlusProche();
 
+            if (preconditionsValidee(queteFinale))
+                realisonLaQuete(queteFinale, solution);
+            else
+                realisonLaQuete(queteLaPlusProche(), solution);
         }
-
 
         return solution;
     }
