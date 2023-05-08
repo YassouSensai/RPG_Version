@@ -32,6 +32,7 @@ public class Client {
         System.out.println("\ntest affichage 7");
         NiveauUNParametre niveauUNTest = new NiveauUNParametre(scenario0);
         System.out.println(niveauUNTest.solutionEfficace());
+        System.out.println(niveauUNTest.solutionExhaustive());
 /*
         System.out.println("\ntest perso");
         ArrayList<Quete> test = scenario0.getChQuetes();

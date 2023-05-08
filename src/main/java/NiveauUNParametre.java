@@ -65,7 +65,7 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette quete permet de retourner la quete la plus proche qui n'a pas encore été effectué et dont les preconditions sont validée
+     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore été effectué et dont les preconditions sont validée
      * @return Quete
      */
     private Quete queteLaPlusProche() {
@@ -79,6 +79,22 @@ public class NiveauUNParametre {
             }
         }
         return plusProches;
+    }
+
+
+    /**
+     * Cette méthode permet de dire si toutes les quetes sont réalisée ou non
+     * @return boolean
+     */
+    private boolean scenarioFini() {
+        boolean reponse = true;
+        for (Quete quete : quetesScenario) {
+            if (!quete.estRealisee()) {
+                reponse = false;
+                break;
+            }
+        }
+        return reponse;
     }
 
 
@@ -193,8 +209,19 @@ public class NiveauUNParametre {
      * la methode solutionexhaustive() renvoie un tableau avec les quetes dans l'ordre pour une solution dite exhaustive
      * @return Quete[]
      */
-    public Quete[] solutionExhaustive() {
-        return new Quete[]{queteFinale};
+    public ArrayList<Quete> solutionExhaustive() {
+        miseAJour();
+        ArrayList<Quete> solution = new ArrayList<>();
+        String solutionString = "";
+
+        while (!scenarioFini()) {
+
+        }
+
+        System.out.println("Toutes les quêtes préalables ont été réalisée - Impossible de proposer une solution exhaustive ");
+
+        System.out.println(solutionString += "\n\nRapport : durée totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
+        return solution;
     }
 
     /**
