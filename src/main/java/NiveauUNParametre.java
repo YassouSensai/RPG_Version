@@ -23,7 +23,9 @@ public class NiveauUNParametre {
     }
 
     /**
-     * cette méthode sert à mettre à jour les differents champs afin de pouvoir afficher une solution efficace et/ou exhaustive sans probleme
+     * cette méthode sert à mettre à jour les differents champs afin de pouvoir
+     * afficher une solution efficace et/ou exhaustive sans probleme
+     * c'est à dire à partir du même objet de la classe NiveauUNParametre.java.
      */
     private void miseAJour() {
         for (Quete quete : quetesScenario) {
@@ -31,10 +33,14 @@ public class NiveauUNParametre {
                 quete.setChRealisee(true);
         }
         quetesRealisee = new ArrayList<>();
+        dureeAccumulee = 0;
+        experienceAccumulee = 0;
+        positionDepart = new Position(0,0);
     }
 
     /**
-     * cette methode permet de verifier qu'une quete a bien été réalisée
+     * cette methode permet de verifier qu'une quete a bien été réalisée.
+     * Plus precisement, elle vérifie que le numéro d'une quête se trouve bien dans la liste queteRealisee.
      * @param precondition
      * @return boolean
      */
@@ -59,7 +65,7 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette quete permet de retourner la quete la plus proche qui n'a pas encore été effectué
+     * Cette quete permet de retourner la quete la plus proche qui n'a pas encore été effectué et dont les preconditions sont validée
      * @return Quete
      */
     private Quete queteLaPlusProche() {
@@ -100,6 +106,8 @@ public class NiveauUNParametre {
     /**
      * cette methode permet de dire si les preconditions de n'importe quelle quete sont validee ou non
      * (quete normale ou quete finale)
+     *
+     * elle va utiliser la methode quetePreconditionsValidee et comparer l'experience accumulée à l'experience nécessaire
      * @param parQuete
      * @return boolean
      */
@@ -116,25 +124,30 @@ public class NiveauUNParametre {
 
     /**
      * Cette methode permet de realiser toutes les manipulations necessaires à la realisation d'une quete
+     * Cette methode va également renvoyer une chaîne de caractère qui representera l'historique des déplacement et des quetes realisée
      * @param parQuete
      * @param solution
+     * @return String
      */
     private String realisonLaQuete(Quete parQuete, ArrayList<Quete> solution, String solutionString) {
+
+        // ex : (+7 : déplacement de (0,0) à (4,3))
         String ligneDeplacement = "";
+
+        // ex : (+2 : quête 1 (total xp : 100))
         String ligneQuete = "";
 
         if (preconditionsValidee(parQuete)) {
 
+            // Ce bloc sert à mettre à jour la durée totale, mettre à jour la prochaine position de depart
+            // ainsi que construire la chaîne de caractère ligneDeplacement
             int dureeDeplacement = positionDepart.deplacement(parQuete.chPosition);
             dureeAccumulee += dureeDeplacement + parQuete.getChDuree();
             Position positionDeplacement = parQuete.getChPosition();
-
-
             ligneDeplacement += "\n+" + dureeDeplacement + " : déplacement de " + positionDepart + " à " + positionDeplacement;
-
             positionDepart = positionDeplacement;
 
-
+            // Dans ce bloc, on ajoute la quete à la solution et on déclare la solution comme étant réalisée
             solution.add(parQuete);
             quetesRealisee.add(parQuete.getChNumero());
             parQuete.setChRealisee(true);
@@ -142,6 +155,7 @@ public class NiveauUNParametre {
             if (!parQuete.estQueteFinale())
                 experienceAccumulee += parQuete.getChExperience();
 
+            // Construction de la chaîne de caractère ligneQuete
             ligneQuete += "\n+" + parQuete.getChDuree() + " : quête " + parQuete.getChNumero() + " (total xp : " + experienceAccumulee + ")";
         }
 
@@ -171,7 +185,7 @@ public class NiveauUNParametre {
                 solutionString = realisonLaQuete(queteARealiser, solution, solutionString);
         }
 
-        System.out.println(solutionString);
+        System.out.println(solutionString += "\n\nRapport : durée totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
         return solution;
     }
 
