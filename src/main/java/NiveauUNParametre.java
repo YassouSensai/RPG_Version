@@ -112,71 +112,6 @@ public class NiveauUNParametre {
         }
     }
 
-    /**
-     * Cette methode permet de realiser les preconditions d'une quete
-     *
-     * edit : Cette méthode pourra servir pour le niveau 2
-     *
-     * @param parQuete
-     * @param solution
-     */
-    private void realisonsLesPreconditions(Quete parQuete, ArrayList<Quete> solution) {
-        int nbPreconditions = parQuete.nbPreconditions();
-        int[][] preconditions = parQuete.getChPreconditions();
-
-        if (nbPreconditions == 1) {
-            Quete quete1,quete2;
-            quete1 = rechercheQuete(preconditions[0][0]);
-            if (preconditions[0][1] == 0)
-                realisonLaQuete(quete1, solution);
-            else {
-                quete2 = rechercheQuete(preconditions[0][1]);
-                if (positionDepart.deplacement(quete1.chPosition) < positionDepart.deplacement(quete2.chPosition))
-                    realisonLaQuete(quete1, solution);
-                else
-                    realisonLaQuete(quete2, solution);
-            }
-        }
-        if (nbPreconditions == 2) {
-            Quete quete1,quete2,quete3,quete4;
-            quete1 = rechercheQuete(preconditions[0][0]);
-            quete3 = rechercheQuete(preconditions[1][0]);
-            if (preconditions[0][1] == 0 && preconditions[1][1] == 0) {
-                realisonLaQuete(quete1, solution);
-                realisonLaQuete(quete3, solution);
-            } else if (preconditions[0][1]==0) {
-                realisonLaQuete(quete1, solution);
-                quete4 = rechercheQuete(preconditions[1][1]);
-                if (positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition)){
-                    System.out.println("\nsoit 3 soit 4 : ");
-                    System.out.println(positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition));
-                    realisonLaQuete(quete3,solution);
-                }
-                else
-                    realisonLaQuete(quete4, solution);
-            } else if (preconditions[1][0] == 0) {
-                realisonLaQuete(quete3, solution);
-                quete2 = rechercheQuete(preconditions[0][1]);
-                if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete2.chPosition))
-                    realisonLaQuete(quete1,solution);
-                else
-                    realisonLaQuete(quete2, solution);
-            }
-            else {
-                quete2 = rechercheQuete(preconditions[0][1]);
-                quete4 = rechercheQuete(preconditions[1][1]);
-                if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete2.chPosition))
-                    realisonLaQuete(quete1,solution);
-                else
-                    realisonLaQuete(quete2, solution);
-                if (positionDepart.deplacement(quete3.chPosition) <= positionDepart.deplacement(quete4.chPosition))
-                    realisonLaQuete(quete3,solution);
-                else
-                    realisonLaQuete(quete4, solution);
-            }
-
-        }
-    }
 
 
     /**
@@ -184,11 +119,22 @@ public class NiveauUNParametre {
      * @param parQuete
      * @param solution
      */
-    private void realisonLaQuete(Quete parQuete, ArrayList<Quete> solution) {
+    private String realisonLaQuete(Quete parQuete, ArrayList<Quete> solution, String solutionString) {
+        String ligneDeplacement = "";
+        String ligneQuete = "";
+
         if (preconditionsValidee(parQuete)) {
-            System.out.println("\nQuete en cours : "+ parQuete+"\nnombre de preconditions : "+parQuete.nbPreconditions());
-            dureeAccumulee += positionDepart.deplacement(parQuete.chPosition) + parQuete.getChDuree();
-            positionDepart = parQuete.getChPosition();
+
+            int dureeDeplacement = positionDepart.deplacement(parQuete.chPosition);
+            dureeAccumulee += dureeDeplacement + parQuete.getChDuree();
+            Position positionDeplacement = parQuete.getChPosition();
+
+
+            ligneDeplacement += "\n+" + dureeDeplacement + " : déplacement de " + positionDepart + " à " + positionDeplacement;
+
+            positionDepart = positionDeplacement;
+
+
             solution.add(parQuete);
             quetesRealisee.add(parQuete.getChNumero());
             parQuete.setChRealisee(true);
@@ -196,8 +142,11 @@ public class NiveauUNParametre {
             if (!parQuete.estQueteFinale())
                 experienceAccumulee += parQuete.getChExperience();
 
-            System.out.println("\ntotal xp : "+ experienceAccumulee + "\nduree accumulee : " + dureeAccumulee);
+            ligneQuete += "\n+" + parQuete.getChDuree() + " : quête " + parQuete.getChNumero() + " (total xp : " + experienceAccumulee + ")";
         }
+
+        solutionString += ligneDeplacement + ligneQuete;
+        return solutionString;
     }
 
 
@@ -211,15 +160,18 @@ public class NiveauUNParametre {
     public ArrayList<Quete> solutionEfficace() {
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
+        String solutionString = "";
+
         while (!queteFinale.estRealisee()) {
             Quete queteARealiser = queteLaPlusProche();
 
             if (preconditionsValidee(queteFinale))
-                realisonLaQuete(queteFinale, solution);
+                solutionString = realisonLaQuete(queteFinale, solution, solutionString);
             else
-                realisonLaQuete(queteLaPlusProche(), solution);
+                solutionString = realisonLaQuete(queteARealiser, solution, solutionString);
         }
 
+        System.out.println(solutionString);
         return solution;
     }
 
