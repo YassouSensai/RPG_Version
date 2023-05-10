@@ -6,7 +6,7 @@ public class Client {
     public static void main (String [] args) {
 
 
-        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_1.txt");
+        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_0.txt");
 
         LectureFichierTexte premiereLecture = new LectureFichierTexte();
         Scenario scenario0 = LectureFichierTexte.lecture(fichierScenario0);
