@@ -6,8 +6,10 @@ public class LectureFichierTexte {
 
 
     /**
-     * Méthode lecture ce la classe LectureFichierTexte.
-     * Cette méthode permet de créer un scenario à partir d'un fichier texte qui contient plusieurs lignes qui correspondent à des quêtes.
+     * Methode lecture ce la classe LectureFichierTexte.
+     * Cette methode permet de creer un scenario a partir d'un fichier texte.
+     * Ce fichier texte contient plusieurs lignes qui correspondent chacune a des quetes.
+     *
      * @param fichier
      * @return
      */

@@ -20,7 +20,7 @@ class NiveauUNParametreTest {
     @Test
     void rechercheQuete() {
         NiveauUNParametre niveauUNTest = new NiveauUNParametre(new LectureFichierTexte().lecture(new File("scenarios"+ File.separator+"scenario_0.txt")));
-        ArrayList<Quete> niveauUnQuetesTest = niveauUNTest.scenarioEnCour.getChQuetes();
+        ArrayList<Quete> niveauUnQuetesTest = niveauUNTest.scenarioEnCour.getListeQuetes();
         int[] tabNumeroQuete = {1,2,3};
         Quete[] tabReponse = {niveauUnQuetesTest.get(0),niveauUnQuetesTest.get(1),niveauUnQuetesTest.get(2)};
 

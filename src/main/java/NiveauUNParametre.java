@@ -11,20 +11,22 @@ public class NiveauUNParametre {
     int dureeAccumulee = 0;
 
     /**
-     * Constructeur de la classe NiveauUN
+     * Constructeur de la classe NiveauUN a partir d'un scenario
+     *
      * @param parScenario
      */
     public NiveauUNParametre(Scenario parScenario) {
         scenarioEnCour = parScenario;
         queteFinale = parScenario.queteFinale();
         experienceNecessaireQueteFinale = parScenario.queteFinale().getChExperience();
-        quetesScenario = parScenario.getChQuetes();
+        quetesScenario = parScenario.getListeQuetes();
     }
 
     /**
-     * cette méthode sert à mettre à jour les differents champs afin de pouvoir
-     * afficher une solution efficace et/ou exhaustive sans probleme
-     * c'est à dire à partir du même objet de la classe NiveauUNParametre.java.
+     * Cette methode sert a mettre a jour les differents champs afin de pouvoir
+     * afficher une solution efficace et/ou exhaustive sans probleme.
+     *
+     * c'est à dire à partir du même objet de la classe NiveauUNParametre.
      */
     private void miseAJour() {
         for (Quete quete : quetesScenario) {
@@ -38,8 +40,9 @@ public class NiveauUNParametre {
     }
 
     /**
-     * cette methode permet de verifier qu'une quete a bien été réalisée.
-     * Plus precisement, elle vérifie que le numéro d'une quête se trouve bien dans la liste queteRealisee.
+     * Cette methode permet de verifier qu'une quete a bien ete realisee.
+     * Plus precisement, elle verifie que le numero d'une quete se trouve bien dans la liste queteRealisee.
+     *
      * @param precondition
      * @return boolean
      */
@@ -49,7 +52,9 @@ public class NiveauUNParametre {
 
 
     /**
-     * permet de retourner une quete a partir de son numero (lorsque celle-ci se trouve dans les preconditions d'une autre quete par exemple)
+     * Cette methode permet de retourner une quete a partir de son numero
+     * (lorsque celle-ci se trouve dans les preconditions d'une autre quete par exemple).
+     *
      * @param quetePrecondition
      * @return
      */
@@ -64,8 +69,11 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore été effectué et dont les preconditions sont validée
-     * Cette méthode sera utilisée pour la solution efficace
+     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore ete effectuee
+     * et dont les preconditions sont validees.
+     *
+     * Cette methode sera utilisée pour la solution efficace.
+     *
      * @return Quete
      */
     private Quete queteLaPlusProche_Efficace() {
@@ -83,14 +91,15 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore été effectué, dont les preconditions sont validée
-     * Mais qui n'est pas la queteFinale
-     * Cette méthode sera utilisée pour la solution exhaustive
+     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore ete effectuee,
+     * dont les preconditions sont validees, mais qui n'est pas la queteFinale.
+     *
+     * Cette methode sera utilisee pour la solution exhaustive.
+     *
      * @return Quete
      */
     private Quete queteLaPlusProche_Exhaustive() {
         Quete plusProche = queteFinale;
-        int deplacement = 15000;
         int deplacementMin = 15000;
         for (Quete quete : quetesScenario) {
             if (!quete.estRealisee() && preconditionsValidee(quete) && !quete.estQueteFinale()) {
@@ -104,7 +113,9 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette méthode permet de dire si toutes les quetes sont réalisée ou non
+     * Cette methode permet de dire si toutes les quetes sont realisee.
+     * Cette methode exclue la quete finale qar elle sera utilisée pour la solution exhaustive.
+     *
      * @return boolean
      */
     private boolean scenarioFini() {
@@ -121,8 +132,11 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette methode permet de dire si les preconditions d'une quete sont validee (ici on parle des preconditions de quete)
-     * Les verifications se font donc sur le champs chPreconditions d'une quete
+     * Cette methode permet de dire si les preconditions d'une quete sont validees ou non.
+     *
+     * Ici on parle des preconditions de quete, les verifications se font donc sur les champs
+     * precond1,precond2,precond3 et precond4 du parametre parQuete.
+     *
      * @param parQuete
      * @return boolean
      */
@@ -142,10 +156,11 @@ public class NiveauUNParametre {
     }
 
     /**
-     * cette methode permet de dire si les preconditions de n'importe quelle quete sont validee ou non
-     * (quete normale ou quete finale)
+     * Cette methode permet de dire si les preconditions de n'importe quelle quete sont validee ou non
+     * (quete normale ou quete finale).
      *
-     * elle va utiliser la methode quetePreconditionsValidee et comparer l'experience accumulée à l'experience nécessaire
+     * Cette methode utilisera la methode quetePreconditionsValidee et comparera l'experience accumulee à l'experience nécessaire.
+     *
      * @param parQuete
      * @return boolean
      */
@@ -161,8 +176,9 @@ public class NiveauUNParametre {
 
 
     /**
-     * Cette methode permet de realiser toutes les manipulations necessaires à la realisation d'une quete
-     * Cette methode va également renvoyer une chaîne de caractère qui representera l'historique des déplacement et des quetes realisée
+     * Cette methode permet de realiser toutes les manipulations necessaires a la realisation d'une quete.
+     * Cette methode va également renvoyer une chaîne de caractère qui representera l'historique des déplacement et des quetes realisée.
+     *
      * @param parQuete
      * @param solution
      * @return String
@@ -206,7 +222,8 @@ public class NiveauUNParametre {
 
 
     /**
-     * la methode solutionEfficace() renvoie un tableau avec les quetes dans l'ordre pour une solution dite efficace
+     * La methode solutionEfficace() renvoie une ArrayList avec les quetes dans l'ordre pour une solution efficace ("gloutonne").
+     *
      * @return ArrayList<Quete>
      */
     public ArrayList<Quete> solutionEfficace() {
@@ -227,11 +244,13 @@ public class NiveauUNParametre {
 
         System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee + " et nombre de quetes realisees = " + solution.size()+"/"+quetesScenario.size());
         return solution;
+
     }
 
     /**
-     * la methode solutionexhaustive() renvoie un tableau avec les quetes dans l'ordre pour une solution dite exhaustive
-     * @return Quete[]
+     * la methode solutionexhaustive() renvoie une ArrayList avec les quetes dans l'ordre pour une solution exhaustive ("gloutonne")
+     *
+     * @return ArrayList<Quete>
      */
     public ArrayList<Quete> solutionExhaustive() {
         System.out.println("\n\nSolution exhaustive 'glouton' pour le scenario ! " );
@@ -253,10 +272,11 @@ public class NiveauUNParametre {
     }
 
     /**
-     * Methode toString de la classe NiveauUN
+     * Methode toString de la classe NiveauUN.
+     *
      * @return String
      */
     public String toString() {
-        return "Niveau 1 :\nQuete finale : " + queteFinale.toString() + "\nNombre total de quetes : " + scenarioEnCour.chQuetes.size();
+        return "Niveau 1 :\nQuete finale : " + queteFinale.toString() + "\nNombre total de quetes : " + scenarioEnCour.listeQuetes.size();
     }
 }

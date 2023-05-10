@@ -1,12 +1,12 @@
 import static java.lang.Math.abs;
 
 public class Position {
-    int x;
-    int y;
+    int x, y;
 
 
     /**
-     * Constructeur de la classe Position à partir d'une quete
+     * Constructeur de la classe Position a partir des coordonnées x et y.
+     *
      * @param parX
      * @param parY
      */
@@ -16,20 +16,25 @@ public class Position {
     }
 
     /**
-     * accesseur du champ x
+     * Cette methode est un accesseur, elle retourne le champ x.
+     *
      * @return int
      */
     public int getX() {return x;}
 
     /**
-     * accesseur du champs y
+     * Cette methode est un accesseur, elle retourne le champ y.
+     *
      * @return int
      */
     public int getY() {return y;}
 
     /**
-     * la methode deplacement() renvoi le nombre d'unite de temps que necessite
-     * le deplacement de la position appelante à la position en parametre
+     * La methode deplacement() renvoi le nombre d'unite de temps que necessite
+     * le deplacement de la position appelante a la position en parametre.
+     *
+     * (Cette methode est utilisée dans le niveau 1)
+     *
      * @param parPosition
      * @return int
      */

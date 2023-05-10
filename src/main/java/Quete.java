@@ -16,7 +16,7 @@ public class Quete {
 
     /**
      * Constructeur de la classe Quete.
-     * Ce constructeur recevra en paramètre une chaîne de caractère qui contient les différentes informations d'une quête.
+     * Ce constructeur recevra en parametre une chaine de caractere qui contient les differentes informations d'une quete.
      * Ainsi, le constructeur construira un objet Quete en fonctions de ces informations.
      *
      * @param ligne
@@ -43,7 +43,7 @@ public class Quete {
             precond = precond.replace(")", " ");
             precond = precond.replace(" ", "");
 
-            System.out.println(precond);
+
             Scanner precondition = new Scanner(precond).useDelimiter(",");
             ArrayList<Object> liste = new ArrayList<>();
 
@@ -73,7 +73,8 @@ public class Quete {
     }
 
     /**
-     * retourne le numero de la quete appelante
+     * Cette methode est un accesseur, elle retourne le numero de la quete appelante.
+     *
      * @return chNumero
      */
     public int getChNumero() {
@@ -82,7 +83,8 @@ public class Quete {
 
 
     /**
-     * retourne la duree de la quete appelante
+     * Cette methode est un accesseur, elle retourne la duree de la quete appelante.
+     *
      * @return chDuree
      */
     public int getChDuree() {
@@ -90,8 +92,9 @@ public class Quete {
     }
 
     /**
-     * retourne l'experience qu'apporte la quete appelante
-     * (ou bien l'experience necessaire si c'est la quete finale qui appelle cette méthode)
+     * Cette methode est un accesseur, elle retourne l'experience qu'apporte la quete appelante
+     * (ou bien l'experience necessaire si c'est la quete finale qui appelle cette méthode).
+     *
      * @return chExperience
      */
     public int getChExperience() {
@@ -99,7 +102,7 @@ public class Quete {
     }
 
     /**
-     * retourne l'intitule de la quete appelante
+     * Cette methode retourne l'intitule de la quete appelante.
      * @return chIntitule
      */
     public String getChIntitule() {
@@ -107,7 +110,8 @@ public class Quete {
     }
 
     /**
-     * retourne les preconditions de la quete appelante
+     * Cette methode est un accesseur, elle retourne les preconditions de la quete appelante.
+     *
      * @return chPrecondition
      */
     public int[][] getChPreconditions() {
@@ -115,45 +119,33 @@ public class Quete {
     }
 
     /**
-     * retourne la position de la quete appelante
+     * Cette methode est un accesseur, elle retourne la position de la quete appelante.
+     *
      * @return chPosition
      */
     public Position getChPosition() {return chPosition;}
 
     /**
-     * methode qui permet de modifier le champ chRealisee d'une quete
+     * Methode qui permet de modifier le champ chRealisee d'une quete.
+     *
      * @param parametre
      */
     public void setChRealisee(boolean parametre) {chRealisee = parametre;}
 
     /**
      * Cette methode renvoi true si la quete appelante est la quete finale.
-     * renvoi false si non.
+     * Elle renvoi false si non.
+     *
      * @return boolean
      */
     public boolean estQueteFinale() {
         return chNumero == 0;
     }
 
-    /**
-     * Cette methode permet de savoir si une quete possede des preconditions ou non
-     * @return boolean
-     */
-    public boolean possedePreconditions() {
-        boolean reponse = false;
-        for (int i=0; i < chPreconditions.length; i++) {
-            for (int j=0; j < chPreconditions[i].length; j++) {
-                if (chPreconditions[i][j] != 0){
-                    reponse = true;
-                    break;
-                }
-            }
-        }
-        return reponse;
-    }
 
     /**
-     * Cette methode renvoi le nombre de preconditions necessaires pour la quete
+     * Cette methode renvoi le nombre de preconditions necessaires pour la quete.
+     *
      * @return int
      */
     public int nbPreconditions() {
@@ -166,18 +158,22 @@ public class Quete {
     }
 
     /**
-     * permet de savoir si une quete est realisee ou non
+     * Cette methode permet de savoir si une quete est realisee ou non.
+     *
      * @return boolean
      */
-    public boolean estRealisee() {
-        return chRealisee;
+    public boolean estRealisee() {return chRealisee;
     }
 
 
 
     /**
-     * la methode deplacement() renvoi le nombre d'unite de temps que necessite
-     * le deplacement de la quete appelante à la quete en parametre
+     * La methode deplacement() renvoi le nombre d'unite de temps que necessite
+     * le deplacement de la quete appelante à la quete en parametre.
+     *
+     * (Cette methode existe également dans la classe Position.
+     * Aisni, cette methode servira pour le niveau 2)
+     *
      * @param parQuete
      * @return int
      */
@@ -187,8 +183,9 @@ public class Quete {
     }
 
     /**
-     * Méthode toString de la calsse Quete.
+     * Methode toString de la calsse Quete.
      * permet d'afficher une quête de manière très simple.
+     *
      * @return
      */
     public String toString() {

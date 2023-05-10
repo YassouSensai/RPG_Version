@@ -1,12 +1,10 @@
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Client {
     public static void main (String [] args) {
 
 
-        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_0.txt");
+        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_8.txt");
 
         LectureFichierTexte premiereLecture = new LectureFichierTexte();
         Scenario scenario0 = LectureFichierTexte.lecture(fichierScenario0);
@@ -15,7 +13,7 @@ public class Client {
         System.out.println(scenario0);
 
         System.out.println("\ntest affichage 2");
-        System.out.println(scenario0.chQuetes.get(0).estQueteFinale());
+        System.out.println(scenario0.listeQuetes.get(0).estQueteFinale());
 
 
         System.out.println("\ntest affichage 3");
@@ -24,8 +22,8 @@ public class Client {
 
 
         System.out.println("\ntest affichage 6");
-        Quete test1 = scenario0.getChQuetes().get(1);
-        Quete test2 = scenario0.getChQuetes().get(1);
+        Quete test1 = scenario0.getListeQuetes().get(1);
+        Quete test2 = scenario0.getListeQuetes().get(1);
         System.out.println(test1 == test2);
 
 
