@@ -147,10 +147,10 @@ public class NiveauUNParametre {
      */
     private String realisonLaQuete(Quete parQuete, ArrayList<Quete> solution, String solutionString) {
 
-        // ex : (+7 : déplacement de (0,0) à (4,3))
+        // ex : (+7 : deplacement de (0,0) a (4,3))
         String ligneDeplacement = "";
 
-        // ex : (+2 : quête 1 (total xp : 100))
+        // ex : (+2 : quete 1 (total xp : 100))
         String ligneQuete = "";
 
         if (preconditionsValidee(parQuete)) {
@@ -160,7 +160,7 @@ public class NiveauUNParametre {
             int dureeDeplacement = positionDepart.deplacement(parQuete.chPosition);
             dureeAccumulee += dureeDeplacement + parQuete.getChDuree();
             Position positionDeplacement = parQuete.getChPosition();
-            ligneDeplacement += "\n+" + dureeDeplacement + " : déplacement de " + positionDepart + " à " + positionDeplacement;
+            ligneDeplacement += "\n+" + dureeDeplacement + " : deplacement de " + positionDepart + " a " + positionDeplacement;
             positionDepart = positionDeplacement;
 
             // Dans ce bloc, on ajoute la quete à la solution et on déclare la solution comme étant réalisée
@@ -172,7 +172,7 @@ public class NiveauUNParametre {
                 experienceAccumulee += parQuete.getChExperience();
 
             // Construction de la chaîne de caractère ligneQuete
-            ligneQuete += "\n+" + parQuete.getChDuree() + " : quête " + parQuete.getChNumero() + " (total xp : " + experienceAccumulee + ")";
+            ligneQuete += "\n+" + parQuete.getChDuree() + " : quete " + parQuete.getChNumero() + " (total xp : " + experienceAccumulee + ")";
         }
 
         solutionString += ligneDeplacement + ligneQuete;
@@ -201,7 +201,7 @@ public class NiveauUNParametre {
                 solutionString = realisonLaQuete(queteARealiser, solution, solutionString);
         }
 
-        System.out.println(solutionString += "\n\nRapport : durée totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
+        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
         return solution;
     }
 
@@ -218,7 +218,7 @@ public class NiveauUNParametre {
 
         }
 
-        System.out.println("Toutes les quêtes préalables ont été réalisée - Impossible de proposer une solution exhaustive ");
+        System.out.println("Toutes les quêtes préalables ont ete realisee - Impossible de proposer une solution exhaustive ");
 
         System.out.println(solutionString += "\n\nRapport : durée totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
         return solution;

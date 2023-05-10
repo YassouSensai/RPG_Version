@@ -6,10 +6,10 @@ public class Client {
     public static void main (String [] args) {
 
 
-        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_0.txt");
+        File fichierScenario0 = new File("scenarios"+ File.separator+"scenario_1.txt");
 
         LectureFichierTexte premiereLecture = new LectureFichierTexte();
-        Scenario scenario0 = premiereLecture.lecture(fichierScenario0);
+        Scenario scenario0 = LectureFichierTexte.lecture(fichierScenario0);
 
         System.out.println("\ntest affichage 1");
         System.out.println(scenario0);

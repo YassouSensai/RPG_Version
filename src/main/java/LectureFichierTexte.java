@@ -4,8 +4,6 @@ import java.util.Scanner;
 
 public class LectureFichierTexte {
 
-    public LectureFichierTexte(){
-    }
 
     /**
      * Méthode lecture ce la classe LectureFichierTexte.
