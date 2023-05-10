@@ -29,7 +29,8 @@ public class Quete {
             String pos = scanner.next();
             pos = pos.replace("(", "");
             pos = pos.replace(")", "");
-            Scanner scanPos = new Scanner(pos).useDelimiter(", ");
+            pos = pos.replace(" ", "");
+            Scanner scanPos = new Scanner(pos).useDelimiter(",");
             int [] tabPosition = new int [2];
             for (int x=0; x < tabPosition.length; x++) {
                 tabPosition[x] = scanPos.nextInt();
