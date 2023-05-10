@@ -225,7 +225,7 @@ public class NiveauUNParametre {
                 solutionString = realisonLaQuete(queteARealiser, solution, solutionString);
         }
 
-        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
+        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee + " et nombre de quetes realisees = " + solution.size()+"/"+quetesScenario.size());
         return solution;
     }
 
@@ -241,14 +241,14 @@ public class NiveauUNParametre {
         String solutionString = "";
 
         while (!scenarioFini()) {
-            realisonLaQuete(queteLaPlusProche_Exhaustive(), solution, solutionString);
+            solutionString = realisonLaQuete(queteLaPlusProche_Exhaustive(), solution, solutionString);
         }
         if (preconditionsValidee(queteFinale))
             realisonLaQuete(queteFinale, solution, solutionString);
         else
             System.out.println("Toutes les quêtes préalables ont ete realisee - Impossible de proposer une solution exhaustive ");
 
-        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
+        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee + " et nombre de quetes realisees = " + solution.size()+"/"+quetesScenario.size());
         return solution;
     }
 
