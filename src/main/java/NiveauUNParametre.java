@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class NiveauUNParametre {
     Scenario scenarioEnCour;
@@ -30,7 +29,7 @@ public class NiveauUNParametre {
     private void miseAJour() {
         for (Quete quete : quetesScenario) {
             if (quete.chRealisee)
-                quete.setChRealisee(true);
+                quete.setChRealisee(false);
         }
         quetesRealisee = new ArrayList<>();
         dureeAccumulee = 0;
@@ -66,19 +65,41 @@ public class NiveauUNParametre {
 
     /**
      * Cette methode permet de retourner la quete la plus proche qui n'a pas encore été effectué et dont les preconditions sont validée
+     * Cette méthode sera utilisée pour la solution efficace
      * @return Quete
      */
-    private Quete queteLaPlusProche() {
-        Quete plusProches = queteFinale;
+    private Quete queteLaPlusProche_Efficace() {
+        Quete plusProche = queteFinale;
         int deplacementMin = 15000;
         for (Quete quete : quetesScenario) {
             if (!quete.estRealisee() && preconditionsValidee(quete)) {
                 int deplacementEnCour = positionDepart.deplacement(quete.chPosition);
                 if (deplacementEnCour <= deplacementMin)
-                    plusProches = quete;
+                    plusProche = quete;
             }
         }
-        return plusProches;
+        return plusProche;
+    }
+
+
+    /**
+     * Cette methode permet de retourner la quete la plus proche qui n'a pas encore été effectué, dont les preconditions sont validée
+     * Mais qui n'est pas la queteFinale
+     * Cette méthode sera utilisée pour la solution exhaustive
+     * @return Quete
+     */
+    private Quete queteLaPlusProche_Exhaustive() {
+        Quete plusProche = queteFinale;
+        int deplacement = 15000;
+        int deplacementMin = 15000;
+        for (Quete quete : quetesScenario) {
+            if (!quete.estRealisee() && preconditionsValidee(quete) && !quete.estQueteFinale()) {
+                int deplacementEnCour = positionDepart.deplacement(quete.chPosition);
+                if (deplacementEnCour <= deplacementMin)
+                    plusProche = quete;
+            }
+        }
+        return plusProche;
     }
 
 
@@ -87,9 +108,10 @@ public class NiveauUNParametre {
      * @return boolean
      */
     private boolean scenarioFini() {
+
         boolean reponse = true;
         for (Quete quete : quetesScenario) {
-            if (!quete.estRealisee()) {
+            if (!quete.estRealisee() && !quete.estQueteFinale()) {
                 reponse = false;
                 break;
             }
@@ -188,12 +210,14 @@ public class NiveauUNParametre {
      * @return ArrayList<Quete>
      */
     public ArrayList<Quete> solutionEfficace() {
+        System.out.println("\n\nSolution efficace 'glouton' pour le scenario ! " );
+
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
         String solutionString = "";
 
         while (!queteFinale.estRealisee()) {
-            Quete queteARealiser = queteLaPlusProche();
+            Quete queteARealiser = queteLaPlusProche_Efficace();
 
             if (preconditionsValidee(queteFinale))
                 solutionString = realisonLaQuete(queteFinale, solution, solutionString);
@@ -210,17 +234,21 @@ public class NiveauUNParametre {
      * @return Quete[]
      */
     public ArrayList<Quete> solutionExhaustive() {
+        System.out.println("\n\nSolution exhaustive 'glouton' pour le scenario ! " );
+
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
         String solutionString = "";
 
         while (!scenarioFini()) {
-
+            realisonLaQuete(queteLaPlusProche_Exhaustive(), solution, solutionString);
         }
+        if (preconditionsValidee(queteFinale))
+            realisonLaQuete(queteFinale, solution, solutionString);
+        else
+            System.out.println("Toutes les quêtes préalables ont ete realisee - Impossible de proposer une solution exhaustive ");
 
-        System.out.println("Toutes les quêtes préalables ont ete realisee - Impossible de proposer une solution exhaustive ");
-
-        System.out.println(solutionString += "\n\nRapport : durée totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
+        System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee);
         return solution;
     }
 
