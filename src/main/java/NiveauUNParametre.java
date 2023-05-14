@@ -263,7 +263,7 @@ public class NiveauUNParametre {
             solutionString = realisonLaQuete(queteLaPlusProche_Exhaustive(), solution, solutionString);
         }
         if (preconditionsValidee(queteFinale))
-            realisonLaQuete(queteFinale, solution, solutionString);
+            solutionString = realisonLaQuete(queteFinale, solution, solutionString);
         else
             System.out.println("Toutes les quêtes préalables ont ete realisee - Impossible de proposer une solution exhaustive ");
 
