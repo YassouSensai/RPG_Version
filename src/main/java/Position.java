@@ -42,6 +42,21 @@ public class Position {
         return abs(this.x - parPosition.getX()) + abs(this.y - parPosition.getY());
     }
 
+    public Quete premièreQueteARealiser(Quete[] tabQuete) {
+        Position posDepart = this;
+        Quete queteARealiser = tabQuete[0];
+        int minDeplacement = posDepart.deplacement(tabQuete[0].chPosition);
+
+        for (Quete quete : tabQuete) {
+            if (posDepart.deplacement(quete.chPosition) <= minDeplacement) {
+                queteARealiser = quete;
+                minDeplacement = posDepart.deplacement(quete.chPosition);
+                posDepart = quete.chPosition;
+            }
+        }
+        return queteARealiser;
+    }
+
     public String toString() {
         return "(" + x + "," + y + ")";
     }

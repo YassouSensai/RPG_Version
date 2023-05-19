@@ -19,4 +19,18 @@ class PositionTest {
             }
         }
     }
+
+    @Test
+    void premiereQueteARealiser() {
+        System.out.println("Test de la méthode premiereQueteARealiser");
+
+        Position posAppelante = new Position(0,0);
+        Quete[][] tabQuetes = {{new Quete("1|(4, 3)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire"), new Quete("0|(4, 4)|((3,4),)|4|350|vaincre Araignée lunaire")},
+                {new Quete("1|(0, 0)|()|2|100|explorer pic de Bhanborim"), new Quete("0|(1, 1)|((3,4),)|4|350|vaincre Araignée lunaire"), new Quete("0|(4, 4)|((3,4),)|4|350|vaincre Araignée lunaire")}};
+        Quete[] tabReponses = {tabQuetes[0][1], tabQuetes[1][0]};
+
+        for (int i=0; i<tabQuetes.length; i++) {
+            assertEquals(posAppelante.premièreQueteARealiser(tabQuetes[i]), tabReponses[i]);
+        }
+    }
 }

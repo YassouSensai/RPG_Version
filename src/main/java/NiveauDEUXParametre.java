@@ -112,6 +112,10 @@ public class NiveauDEUXParametre {
 
 
 
+
+
+
+
     /**
      * Cette methode permet de realiser toutes les manipulations necessaires a la realisation d'une quete.
      * Cette methode va également renvoyer une chaîne de caractère qui representera l'historique des déplacement et des quetes realisée.
@@ -154,6 +158,7 @@ public class NiveauDEUXParametre {
             Quete quete1 = rechercheQuete(parQuete.precond1);
             Quete quete2, quete3, quete4;
 
+            // Ce bloc permet de décider quelle Quete doit être réalisée q'il y a une seule précondition
             if (nbPreconditions == 1) {
                 if (parQuete.precond3 != 0) {
                     quete3 = rechercheQuete(parQuete.precond3);
@@ -161,22 +166,62 @@ public class NiveauDEUXParametre {
                     if (positionDepart.deplacement(quete1.chPosition) <= positionDepart.deplacement(quete3.chPosition))
                         realisonLaQuete(quete3, solution, solutionString);
                     else
-                        realisonLaQuete(quete1, solution, solutionString);                }
+                        realisonLaQuete(quete1, solution, solutionString);
+                }
             } else if (nbPreconditions == 2) {
                 quete3 = rechercheQuete(parQuete.precond3);
+                Quete queteDepart = null;
+
                 if (parQuete.precond2 != 0) {
                     quete2 = rechercheQuete(parQuete.precond2);
-                }
+                    queteDepart = positionDepart.premièreQueteARealiser(new Quete[] {quete1, quete2, quete3});
 
-                else if (parQuete.precond4 != 0) {
+                    if (queteDepart == quete3) {
+                        realisonLaQuete(quete3, solution, solutionString);
+                        if (quete1.deplacement(quete3) <= quete2.deplacement(quete3))
+                            realisonLaQuete(quete1, solution, solutionString);
+                        else
+                            realisonLaQuete(quete2, solution, solutionString);
+                    }
+                    else {
+                         realisonLaQuete(queteDepart, solution, solutionString);
+                        realisonLaQuete(quete3, solution, solutionString);
+                    }
+                } else if (parQuete.precond4 != 0) {
                     quete4 = rechercheQuete(parQuete.precond4);
-                }
-                else {
+                    queteDepart = positionDepart.premièreQueteARealiser(new Quete[] {quete1, quete3, quete4});
+
+                    if (queteDepart == quete1) {
+                        realisonLaQuete(quete1, solution, solutionString);
+                        if (quete3.deplacement(quete4) <= quete4.deplacement(quete3))
+                            realisonLaQuete(quete3, solution, solutionString);
+                        else
+                            realisonLaQuete(quete4, solution, solutionString);
+                    }
+                    else {
+                        realisonLaQuete(queteDepart, solution, solutionString);
+                        realisonLaQuete(quete1, solution, solutionString);
+                    }
+                } else {
                     quete2 = rechercheQuete(parQuete.precond2);
                     quete4 = rechercheQuete(parQuete.precond4);
+                    queteDepart = positionDepart.premièreQueteARealiser(new Quete[] {quete1, quete2, quete3, quete4});
+
+                    realisonLaQuete(queteDepart, solution, solutionString);
+
+                    if (queteDepart == quete1 || queteDepart == quete2) {
+                        if (quete3.deplacement(quete4) <= quete4.deplacement(quete3))
+                            realisonLaQuete(quete3, solution, solutionString);
+                        else
+                            realisonLaQuete(quete4, solution, solutionString);
+                    }
+                    else {
+                        if (quete1.deplacement(quete3) <= quete2.deplacement(quete3))
+                            realisonLaQuete(quete1, solution, solutionString);
+                        else
+                            realisonLaQuete(quete2, solution, solutionString);
+                    }
                 }
-
-
 
             }
         }
@@ -200,6 +245,10 @@ public class NiveauDEUXParametre {
         miseAJour();
         ArrayList<Quete> solution = new ArrayList<>();
         String solutionString = "";
+
+        while (!queteFinale.estRealisee()) {
+            solutionString = realisonLaQuete(queteFinale, solution, solutionString);
+        }
 
 
         System.out.println(solutionString += "\n\nRapport : duree totale = " + dureeAccumulee + " et experience totale = " + experienceAccumulee + " et nombre de quetes realisees = " + solution.size()+"/"+quetesScenario.size());
